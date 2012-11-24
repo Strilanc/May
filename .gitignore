@@ -1,0 +1,12 @@
+TestResults/*
+*/bin/*
+*/obj/*
+*.pfx
+*.snk
+*.testsettings
+*.suo
+*.crunchsolution.cache
+*.ncrunchsolution
+*.suo
+*.user
+_ReSharper.*
