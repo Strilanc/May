@@ -29,7 +29,8 @@ namespace MayExample {
                 a.MayParseDouble());
 
             Show("B as Double else NaN", (a, b) =>
-                b.MayParseDouble().Else(Double.NaN));
+                b.MayParseDouble()
+                .Else(Double.NaN));
 
             Show("A + B (BigInteger)", (a, b) => 
                 from va in a.MayParseBigInteger() 
@@ -37,7 +38,8 @@ namespace MayExample {
                 select va + vb);
             
             Show("A * B (BigInteger)", (a, b) => 
-                a.MayParseBigInteger().Combine(
+                a.MayParseBigInteger()
+                .Combine(
                     b.MayParseBigInteger(), 
                     (va, vb) => va * vb));
 
@@ -58,7 +60,8 @@ namespace MayExample {
                 select sa - sb);
 
             Show("First double in [A, B]", (a, b) =>
-                new[] { a, b }.Select(e => e.MayParseDouble())
+                new[] { a, b }
+                .Select(e => e.MayParseDouble())
                 .WhereHasValue()
                 .MayFirst());
 
