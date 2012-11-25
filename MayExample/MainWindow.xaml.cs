@@ -28,6 +28,9 @@ namespace MayExample {
             Show("A as Double", (a, b) => 
                 a.MayParseDouble());
 
+            Show("B as Double else NaN", (a, b) =>
+                b.MayParseDouble().Else(Double.NaN));
+
             Show("A + B (BigInteger)", (a, b) => 
                 from va in a.MayParseBigInteger() 
                 from vb in b.MayParseBigInteger() 
