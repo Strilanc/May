@@ -26,17 +26,14 @@ namespace Strilanc.Value {
         }
 
         /// <summary>
-        /// Projects the contained value with the given projection function.
-        /// If this potential value contains no value or else the projected result contains no value, then the result is no value.
+        /// Returns the result of either applying the given projection to the contained value
+        /// or evaluating an alternative function,
+        /// based on whether or not there is a contained value.
         /// </summary>
-        public May<TOut> Bind<TOut>(Func<T, May<TOut>> projection) {
-            if (projection == null) throw new ArgumentNullException("projection");
-            return _hasValue ? projection(_value) : May<TOut>.NoValue;
-        }
-        ///<summary>Returns the value contained in the given potential value, if any, or else the result of evaluating the given alternative value function.</summary>
-        public T Else(Func<T> alternativeFunc) {
+        public TOut Match<TOut>(Func<T, TOut> valueProjection, Func<TOut> alternativeFunc) {
+            if (valueProjection == null) throw new ArgumentNullException("valueProjection");
             if (alternativeFunc == null) throw new ArgumentNullException("alternativeFunc");
-            return _hasValue ? _value : alternativeFunc();
+            return _hasValue ? valueProjection(_value) : alternativeFunc();
         }
 
         ///<summary>Returns a potential value containing no value.</summary>

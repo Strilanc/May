@@ -25,6 +25,13 @@ public class MayTest {
         TestUtil.AssertThrows<InvalidOperationException>(() => default(May<string>).ForceGetValue());
     }
     [TestMethod]
+    public void MayMatch() {
+        May<int>.NoValue.Match(e => -e, () => 2).AssertEquals(2);
+        May<int>.NoValue.Match(e => -e, 2).AssertEquals(2);
+        1.Maybe().Match(e => -e, () => 2).AssertEquals(-1);
+        1.Maybe().Match(e => -e, 2).AssertEquals(-1);
+    }
+    [TestMethod]
     public void MayEquals() {
         // --- all forms of no value are equivalent
         // typed == operators
@@ -108,7 +115,6 @@ public class MayTest {
         Assert.IsTrue(y.Else(() => 2) == 1);
         Assert.IsTrue(y.Else(throwsT) == y);
         TestUtil.AssertThrows<ArgumentException>(() => n.Else(throwsT));
-
 
         // else May<T>
         Assert.IsTrue(n.Else(y) == y);

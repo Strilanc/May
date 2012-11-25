@@ -14,6 +14,28 @@ namespace Strilanc.Value {
         public static May<T> Maybe<T>(this T value) {
             return new May<T>(value);
         }
+        /// <summary>
+        /// Returns either the result of applying the given projection to the contained value
+        /// or an alternative value,
+        /// based on whether or not there is a contained value.
+        /// </summary>
+        public static TOut Match<TIn, TOut>(this May<TIn> potentialValue, Func<TIn, TOut> valueProjection, TOut alternative) {
+            if (valueProjection == null) throw new ArgumentNullException("valueProjection");
+            return potentialValue.Match(valueProjection, () => alternative);
+        }
+        /// <summary>
+        /// Projects the contained value with the given projection function.
+        /// If this potential value contains no value or else the projected result contains no value, then the result is no value.
+        /// </summary>
+        public static May<TOut> Bind<TIn, TOut>(this May<TIn> potentialValue, Func<TIn, May<TOut>> projection) {
+            if (projection == null) throw new ArgumentNullException("projection");
+            return potentialValue.Match(projection, () => NoValue);
+        }
+        ///<summary>Returns the value contained in the given potential value, if any, or else the result of evaluating the given alternative value function.</summary>
+        public static T Else<T>(this May<T> potentialValue, Func<T> alternativeFunc) {
+            if (alternativeFunc == null) throw new ArgumentNullException("alternativeFunc");
+            return potentialValue.Match(e => e, alternativeFunc);
+        }
         ///<summary>Flattens a doubly-potential value, with the result containing a value only if both levels contained a value.</summary>
         public static May<T> Unwrap<T>(this May<May<T>> potentialValue) {
             return potentialValue.Bind(e => e);
@@ -21,7 +43,7 @@ namespace Strilanc.Value {
         ///<summary>Returns the value contained in the given potential value, if any, or else the result of evaluating the given alternative potential value function.</summary>
         public static May<T> Else<T>(this May<T> potentialValue, Func<May<T>> alternative) {
             if (alternative == null) throw new ArgumentNullException("alternative");
-            return potentialValue.Select(e => e.Maybe()).Else(alternative);
+            return potentialValue.Match(e => e.Maybe(), alternative);
         }
         ///<summary>Returns the value contained in the given potential value, if any, or else the given alternative value.</summary>
         public static T Else<T>(this May<T> potentialValue, T alternative) {
@@ -116,7 +138,9 @@ namespace Strilanc.Value {
 
         ///<summary>Returns the value contained in the potential value, or throws an InvalidOperationException if it contains no value.</summary>
         public static T ForceGetValue<T>(this May<T> potentialValue) {
-            return potentialValue.Else(() => { throw new InvalidOperationException("No Value"); });
+            return potentialValue.Match(
+                e => e, 
+                () => { throw new InvalidOperationException("No Value"); });
         }
     }
 }
