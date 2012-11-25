@@ -1,0 +1,13 @@
+﻿<Window x:Class="MayExample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid Background="LightGray">
+        <StackPanel x:Name="Rows">
+            <TextBlock Text="A"/>
+            <TextBox Text="1" x:Name="txtA"/>
+            <TextBlock Text="B"/>
+            <TextBox Text="2oops" x:Name="txtB"/>
+        </StackPanel>
+    </Grid>
+</Window>
