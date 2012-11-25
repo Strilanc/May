@@ -87,7 +87,7 @@ namespace Strilanc.Value {
         /// No effect when there is no contained value.
         /// Returns an IMayHaveValue that has a value iff the action was run.
         /// </summary>
-        public static IMayHaveValue IfThenDo<T>(this May<T> potentialValue, Action<T> hasValueAction) {
+        public static IMayHaveValue IfHasValueThenDo<T>(this May<T> potentialValue, Action<T> hasValueAction) {
             if (hasValueAction == null) throw new ArgumentNullException("hasValueAction");
             return potentialValue.Select(e => {
                 hasValueAction(e);

@@ -142,9 +142,9 @@ public class MayTest {
     [TestMethod]
     public void MayIfThenDo() {
         var i = 0;
-        1.Maybe().IfThenDo(e => { i += e + 1; }).HasValue.AssertIsTrue();
+        1.Maybe().IfHasValueThenDo(e => { i += e + 1; }).HasValue.AssertIsTrue();
         i.AssertEquals(2);
-        May<int>.NoValue.IfThenDo(e => { i += e + 1; }).HasValue.AssertIsFalse();
+        May<int>.NoValue.IfHasValueThenDo(e => { i += e + 1; }).HasValue.AssertIsFalse();
         i.AssertEquals(2);
     }
     [TestMethod]
