@@ -71,24 +71,41 @@ namespace Strilanc.Value {
             return !potentialValue1.Equals(potentialValue2);
         }
 
+        ///<summary>Returns the hash code for this potential value.</summary>
         public override int GetHashCode() {
             return !_hasValue ? 0 
                  : ReferenceEquals(_value, null) ? -1 
                  : _value.GetHashCode();
         }
+        ///<summary>
+        ///Determines if this potential value is equivalent to the given potential value.
+        ///Note: All forms of no value are equal, including May.NoValue, May&lt;T&gt;.NoValue, May&lt;AnyOtherT&gt;.NoValue, default(May&lt;T&gt;) and new May&lt;T&gt;().
+        ///Note: Null is NOT equivalent to new May&lt;object&gt;(null) and neither is equivalent to new May&lt;string&gt;(null).
+        ///</summary>
         public bool Equals(May<T> other) {
             if (other._hasValue != this._hasValue) return false;
             return !this._hasValue || Equals(_value, other._value);
         }
+        ///<summary>
+        ///Determines if this potential value is equivalent to the given potential value.
+        ///Note: All forms of no value are equal, including May.NoValue, May&lt;T&gt;.NoValue, May&lt;AnyOtherT&gt;.NoValue, default(May&lt;T&gt;) and new May&lt;T&gt;().
+        ///Note: Null is NOT equivalent to new May&lt;object&gt;(null) and neither is equivalent to new May&lt;string&gt;(null).
+        ///</summary>
         public bool Equals(IMayHaveValue other) {
             if (other is May<T>) return Equals((May<T>)other);
             // potential values containing no value are always equal
             return other != null && !this.HasValue && !other.HasValue;
         }
+        ///<summary>
+        ///Determines if this potential value is equivalent to the given object.
+        ///Note: All forms of no value are equal, including May.NoValue, May&lt;T&gt;.NoValue, May&lt;AnyOtherT&gt;.NoValue, default(May&lt;T&gt;) and new May&lt;T&gt;().
+        ///Note: Null is NOT equivalent to new May&lt;object&gt;(null) and neither is equivalent to new May&lt;string&gt;(null).
+        ///</summary>
         public override bool Equals(object obj) {
             if (obj is May<T>) return Equals((May<T>)obj);
             return Equals(obj as IMayHaveValue);
         }
+        ///<summary>Returns a string representation of this potential value.</summary>
         public override string ToString() {
             return _hasValue
                  ? String.Format("Value: {0}", _value)

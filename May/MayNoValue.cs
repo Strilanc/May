@@ -11,18 +11,23 @@ namespace Strilanc.Value {
     public struct MayNoValue : IMayHaveValue {
         ///<summary>Determines if this potential value contains a value or not (it doesn't).</summary>
         public bool HasValue { get { return false; } }
+        ///<summary>Returns the hash code for a lack of potential value.</summary>
         public override int GetHashCode() {
             return 0;
         }
+        ///<summary>Determines if the given potential value contains no value.</summary>
         public bool Equals(IMayHaveValue other) {
             return other != null && !other.HasValue;
         }
+        ///<summary>Determines if the given object is a potential value containing no value.</summary>
         public override bool Equals(object obj) {
             return Equals(obj as IMayHaveValue);
         }
+        ///<summary>Determines if the rhs potential value contains no value.</summary>
         public static bool operator ==(MayNoValue noValue1, MayNoValue noValue2) {
             return true;
         }
+        ///<summary>Determines if the rhs potential value contains a value.</summary>
         public static bool operator !=(MayNoValue noValue1, MayNoValue noValue2) {
             return false;
         }
