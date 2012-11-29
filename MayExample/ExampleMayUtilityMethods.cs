@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
 using Strilanc.Value;
 
@@ -35,35 +33,6 @@ namespace MayExample {
         public static May<double> MaySqrt(this double value) {
             if (value >= 0) return Math.Sqrt(value);
             return May.NoValue;
-        }
-
-        ///<summary>Returns the first item in the sequence, unless it's empty.</summary>
-        public static May<T> MayFirst<T>(this IEnumerable<T> sequence) {
-            if (sequence == null) throw new ArgumentNullException("sequence");
-            using (var e = sequence.GetEnumerator())
-                if (e.MoveNext())
-                    return e.Current;
-            return May.NoValue;
-        }
-
-        /// <summary>
-        /// Enumerates the values in the potential values in the sequence.
-        /// The potential values that contain no value are skipped.
-        /// </summary>
-        public static IEnumerable<T> WhereHasValue<T>(this IEnumerable<May<T>> sequence) {
-            return sequence.Where(e => e.HasValue).Select(e => (T)e);
-        }
-        /// <summary>
-        /// Returns a sequence of the actual values in the potential values in the sequence.
-        /// However, if any of the potential values contains no value then the result is no value.
-        /// </summary>
-        public static May<IEnumerable<T>> MayAll<T>(this IEnumerable<May<T>> sequence) {
-            if (sequence == null) throw new ArgumentNullException("sequence");
-            var result = new List<T>();
-            foreach (var potentialValue in sequence)
-                if (!potentialValue.IfHasValueThenDo(result.Add).HasValue)
-                    return May.NoValue;
-            return result;
         }
     }
 }

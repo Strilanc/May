@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 internal static class TestUtil {
+    public static IEnumerable<int> Range(this int count) {
+        return Enumerable.Range(0, count);
+    } 
     public static void AssertThrows<TException>(Func<object> func) where TException : Exception {
         AssertThrows<TException>(new Action(() => func()));
     }

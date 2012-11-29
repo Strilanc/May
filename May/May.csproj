@@ -42,6 +42,7 @@
     <Compile Include="MayNoValue.cs" />
     <Compile Include="IMayHaveValue.cs" />
     <Compile Include="May.cs" />
+    <Compile Include="MayUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
