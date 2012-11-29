@@ -190,13 +190,6 @@ public class MayTest {
         Assert.IsTrue(new May<int>().Where(e => e == 1) == May.NoValue);
     }
     [TestMethod]
-    public void MayNullable() {
-        1.Maybe().AsNullable().AssertEquals(1);
-        new May<int>().AsNullable().AssertEquals((int?)null);
-        ((int?)null).AsMay().AssertEquals(May.NoValue);
-        ((int?)1).AsMay().AssertEquals(1.Maybe());
-    }
-    [TestMethod]
     public void MayCombine() {
         var r = Enumerable.Range(0, 10).Select(e => e.Maybe()).ToArray();
         

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
 
 namespace Strilanc.Value {
     ///<summary>
@@ -8,6 +9,7 @@ namespace Strilanc.Value {
     ///Note: Null is NOT equivalent to new May&lt;object&gt;(null) and neither is equivalent to new May&lt;string&gt;(null).
     ///</summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
+    [DebuggerDisplay("{ToString()}")]
     public struct MayNoValue : IMayHaveValue {
         ///<summary>Determines if this potential value contains a value or not (it doesn't).</summary>
         public bool HasValue { get { return false; } }
@@ -23,13 +25,17 @@ namespace Strilanc.Value {
         public override bool Equals(object obj) {
             return Equals(obj as IMayHaveValue);
         }
-        ///<summary>Determines if the rhs potential value contains no value.</summary>
+        ///<summary>Determines if two lack of values are equal (they are).</summary>
         public static bool operator ==(MayNoValue noValue1, MayNoValue noValue2) {
             return true;
         }
-        ///<summary>Determines if the rhs potential value contains a value.</summary>
+        ///<summary>Determines if two lack of values are not equal (they're not).</summary>
         public static bool operator !=(MayNoValue noValue1, MayNoValue noValue2) {
             return false;
+        }
+        ///<summary>Returns a string representation of this lack of value.</summary>
+        public override string ToString() {
+            return "No Value";
         }
     }
 }

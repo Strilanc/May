@@ -5,6 +5,17 @@ using System.Linq;
 namespace Strilanc.Value {
     ///<summary>Utility methods that involve May&lt;T&gt; but with a focus on other types.</summary>
     public static class MayUtilities {
+        ///<summary>Returns the value contained in the given potential value as a nullable type, returning null if there is no contained value.</summary>
+        public static T? AsNullable<T>(this May<T> potentialValue) where T : struct {
+            return potentialValue.Select(e => (T?)e).ElseDefault();
+        }
+
+        ///<summary>Returns the value contained in the given nullable value as a potential value, with null corresponding to no value.</summary>
+        public static May<T> AsMay<T>(this T? potentialValue) where T : struct {
+            if (!potentialValue.HasValue) return May.NoValue;
+            return potentialValue.Value;
+        }
+
         /// <summary>
         /// Returns the result of using a folder function to combine all the items in the sequence into one aggregate item.
         /// If the sequence is empty, the result is NoValue.

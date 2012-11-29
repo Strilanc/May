@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace Strilanc.Value {
     ///<summary>
@@ -6,6 +7,7 @@ namespace Strilanc.Value {
     ///Note: All forms of no value are equal, including May.NoValue, May&lt;T&gt;.NoValue, May&lt;AnyOtherT&gt;.NoValue, default(May&lt;T&gt;) and new May&lt;T&gt;().
     ///Note: Null is NOT equivalent to new May&lt;object&gt;(null) and neither is equivalent to new May&lt;string&gt;(null).
     ///</summary>
+    [DebuggerDisplay("{ToString()}")]
     public struct May<T> : IMayHaveValue, IEquatable<May<T>> {
         ///<summary>
         ///A potential value containing no value.
@@ -25,11 +27,7 @@ namespace Strilanc.Value {
             this._value = value;
         }
 
-        /// <summary>
-        /// Returns the result of either applying the given projection to the contained value
-        /// or evaluating an alternative function,
-        /// based on whether or not there is a contained value.
-        /// </summary>
+        ///<summary>Matches this potential value into either a function expecting a value or a function expecting no value, returning the result.</summary>
         public TOut Match<TOut>(Func<T, TOut> valueProjection, Func<TOut> alternativeFunc) {
             if (valueProjection == null) throw new ArgumentNullException("valueProjection");
             if (alternativeFunc == null) throw new ArgumentNullException("alternativeFunc");

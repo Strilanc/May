@@ -14,19 +14,12 @@ namespace Strilanc.Value {
         public static May<T> Maybe<T>(this T value) {
             return new May<T>(value);
         }
-        /// <summary>
-        /// Returns either the result of applying the given projection to the contained value
-        /// or an alternative value,
-        /// based on whether or not there is a contained value.
-        /// </summary>
+        ///<summary>Matches this potential value either into a function expecting a value or against an alternative value.</summary>
         public static TOut Match<TIn, TOut>(this May<TIn> potentialValue, Func<TIn, TOut> valueProjection, TOut alternative) {
             if (valueProjection == null) throw new ArgumentNullException("valueProjection");
             return potentialValue.Match(valueProjection, () => alternative);
         }
-        /// <summary>
-        /// Projects the contained value with the given projection function.
-        /// If this potential value contains no value or else the projected result contains no value, then the result is no value.
-        /// </summary>
+        ///<summary>Returns the potential result of potentially applying the given function to this potential value.</summary>
         public static May<TOut> Bind<TIn, TOut>(this May<TIn> potentialValue, Func<TIn, May<TOut>> projection) {
             if (projection == null) throw new ArgumentNullException("projection");
             return potentialValue.Match(projection, () => NoValue);
@@ -53,7 +46,7 @@ namespace Strilanc.Value {
         public static May<T> Else<T>(this May<T> potentialValue, May<T> alternative) {
             return potentialValue.Else(() => alternative);
         }
-        ///<summary>Projects the contained value, if it is present, and otherwise returns a no value.</summary>
+        ///<summary>Returns the result of potentially applying a function to this potential value.</summary>
         public static May<TOut> Select<TIn, TOut>(this May<TIn> value, Func<TIn, TOut> projection) {
             if (projection == null) throw new ArgumentNullException("projection");
             return value.Bind(e => projection(e).Maybe());
@@ -105,8 +98,8 @@ namespace Strilanc.Value {
                    select resultSelector(v1, v2, v3, v4);
         }
         /// <summary>
-        /// Runs an action with the contained value, if any.
-        /// No effect when there is no contained value.
+        /// Potentially runs an action taking the potential value's value.
+        /// No effect if the potential value is no value.
         /// Returns an IMayHaveValue that has a value iff the action was run.
         /// </summary>
         public static IMayHaveValue IfHasValueThenDo<T>(this May<T> potentialValue, Action<T> hasValueAction) {
@@ -125,15 +118,6 @@ namespace Strilanc.Value {
         ///<summary>Returns the value contained in the given potential value, if any, or else the type's default value.</summary>
         public static T ElseDefault<T>(this May<T> potentialValue) {
             return potentialValue.Else(default(T));
-        }
-        ///<summary>Returns the value contained in the given potential value as a nullable type, returning null if there is no contained value.</summary>
-        public static T? AsNullable<T>(this May<T> potentialValue) where T : struct {
-            return potentialValue.Select(e => (T?)e).ElseDefault();
-        }
-        ///<summary>Returns the value contained in the given nullable value as a potential value, with null corresponding to no value.</summary>
-        public static May<T> AsMay<T>(this T? potentialValue) where T : struct {
-            if (!potentialValue.HasValue) return NoValue;
-            return potentialValue.Value;
         }
 
         ///<summary>Returns the value contained in the potential value, or throws an InvalidOperationException if it contains no value.</summary>

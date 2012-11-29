@@ -66,4 +66,11 @@ public class MayUtilitiesTest {
         10.Range().Select(e => e.Maybe()).MayAll().Select(e => e.SequenceEqual(10.Range())).AssertEquals(true.Maybe());
         10.Range().Select(e => e == 5 ? May.NoValue : e.Maybe()).MayAll().AssertEquals(May.NoValue);
     }
+    [TestMethod]
+    public void MayNullable() {
+        1.Maybe().AsNullable().AssertEquals(1);
+        new May<int>().AsNullable().AssertEquals((int?)null);
+        ((int?)null).AsMay().AssertEquals(May.NoValue);
+        ((int?)1).AsMay().AssertEquals(1.Maybe());
+    }
 }
