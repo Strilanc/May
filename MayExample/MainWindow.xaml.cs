@@ -11,7 +11,7 @@ namespace MayExample {
         public MainWindow() {
             InitializeComponent();
 
-            // see ExampleMayUtilityMethods.cs for implementations of MayParseX, MaySqrt, MayAll, etc
+            // see ExampleMayUtilityMethods.cs for implementations of MayParseX, MaySqrt
 
             Show("A as BigInteger", (a, b) => 
                 a.MayParseBigInteger());
@@ -65,7 +65,7 @@ namespace MayExample {
                 .WhereHasValue()
                 .MayFirst());
 
-            Show("[A, B] as IEnumable<double>", (a, b) =>
+            Show("[A, B] as IEnumerable<double>", (a, b) =>
                 new[] { a, b }
                 .Select(e => e.MayParseDouble())
                 .MayAll()
