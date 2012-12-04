@@ -1,0 +1,19 @@
+Public Domain
+
+I place no restrictions on the use of code in this repostory, including:
+- The 'May' option type and related utility methods in the 'May' project
+- The examples and related code in the example project
+- The tests and related code in the texting project
+
+That means:
+- Attribution not required.
+- Commercial use allowed.
+- Derivative use allowed.
+
+But note:
+- No guarantees (I did my best to ensure correctness, but I am not infallible.).
+
+Not that I wouldn't mind hearing about it if you used my code.
+If you need a 'real' license for obtuse legal reasons, I would be happy to grant it.
+
+Craig Gidney, 2012
