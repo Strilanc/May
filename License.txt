@@ -3,7 +3,7 @@ Public Domain
 I place no restrictions on the use of code in this repostory, including:
 - The 'May' option type and related utility methods in the 'May' project
 - The examples and related code in the example project
-- The tests and related code in the texting project
+- The tests and related code in the testing project
 
 That means:
 - Attribution not required.
