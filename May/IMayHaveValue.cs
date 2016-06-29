@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics.Contracts;
 
 namespace Strilanc.Value {
     ///<summary>
@@ -13,6 +14,7 @@ namespace Strilanc.Value {
     [EditorBrowsable(EditorBrowsableState.Never)]
     public interface IMayHaveValue : IEquatable<IMayHaveValue> {
         ///<summary>Determines if this potential value contains a value or not.</summary>
+        [Pure]
         bool HasValue { get; }
     }
 }
