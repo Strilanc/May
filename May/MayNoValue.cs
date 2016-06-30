@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.Contracts;
 
 namespace Strilanc.Value {
     ///<summary>
@@ -12,6 +13,7 @@ namespace Strilanc.Value {
     [DebuggerDisplay("{ToString()}")]
     public struct MayNoValue : IMayHaveValue {
         ///<summary>Determines if this potential value contains a value or not (it doesn't).</summary>
+        [Pure]
         public bool HasValue { get { return false; } }
         ///<summary>Returns the hash code for a lack of potential value.</summary>
         public override int GetHashCode() {
