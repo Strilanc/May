@@ -10,3 +10,4 @@ TestResults/*
 *.suo
 *.user
 _ReSharper.*
+*.nupkg
