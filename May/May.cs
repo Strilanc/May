@@ -15,24 +15,20 @@ namespace Strilanc.Value {
         ///Note: All forms of no value are equal, including May.NoValue, May&lt;T&gt;.NoValue, May&lt;AnyOtherT&gt;.NoValue, default(May&lt;T&gt;) and new May&lt;T&gt;().
         ///Note: Null is NOT equivalent to new May&lt;object&gt;(null) and neither is equivalent to new May&lt;string&gt;(null).
         ///</summary>
-        [Pure]
         public static May<T> NoValue { get { return default(May<T>); } }
 
         private readonly T _value;
         private readonly bool _hasValue;
         ///<summary>Determines if this potential value contains a value or not.</summary>
-        [Pure]
         public bool HasValue { get { return _hasValue; } }
 
         ///<summary>Constructs a potential value containing the given value.</summary>
-        [Pure]
         public May(T value) {
             this._hasValue = true;
             this._value = value;
         }
 
         ///<summary>Matches this potential value into either a function expecting a value or a function expecting no value, returning the result.</summary>
-        [Pure]
         public TOut Match<TOut>(Func<T, TOut> valueProjection, Func<TOut> alternativeFunc) {
             if (valueProjection == null) throw new ArgumentNullException("valueProjection");
             if (alternativeFunc == null) throw new ArgumentNullException("alternativeFunc");

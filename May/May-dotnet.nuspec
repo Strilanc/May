@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>May-dotnet</id>
+    <version>1.1.0</version>
+    <title>curve25519 for .NETStandard</title>
+    <authors>Craig Gidney</authors>
+    <owners>Strilanc</owners>
+    <licenseUrl>https://github.com/Strilanc/May/blob/master/License.txt</licenseUrl>
+    <projectUrl>https://github.com/Strilanc/May</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Description is required.</description>
+    <releaseNotes>dotnet standard, here we come!</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>May netstandard</tags>
+  </metadata>
+  <files>
+    <file src="bin\Release\May.dll" target="lib\netstandard1.0\May.dll" />
+  </files>
+</package>

@@ -14,7 +14,6 @@ namespace Strilanc.Value {
     [EditorBrowsable(EditorBrowsableState.Never)]
     public interface IMayHaveValue : IEquatable<IMayHaveValue> {
         ///<summary>Determines if this potential value contains a value or not.</summary>
-        [Pure]
         bool HasValue { get; }
     }
 }
